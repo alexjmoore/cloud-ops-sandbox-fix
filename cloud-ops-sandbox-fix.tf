@@ -45,3 +45,14 @@ resource "google_project_organization_policy" "externalip_policy" {
     }
   }
 }
+
+resource "google_project_organization_policy" "ipforward_policy" {
+  project    = var.cloud-ops-project 
+  constraint = "compute.vmCanIpForward"
+
+  list_policy {
+    allow {
+      all = true
+    }
+  }
+}
