@@ -35,6 +35,15 @@ resource "google_project_organization_policy" "shieldedvm_policy" {
   }
 }
 
+resource "google_project_organization_policy" "internetneg_policy" {
+  project    = var.cloud-ops-project 
+  constraint = "compute.disableInternetNetworkEndpointGroup"
+
+  boolean_policy {
+    enforced = false
+  }
+}
+
 resource "google_project_organization_policy" "externalip_policy" {
   project    = var.cloud-ops-project 
   constraint = "compute.vmExternalIpAccess"
@@ -49,17 +58,6 @@ resource "google_project_organization_policy" "externalip_policy" {
 resource "google_project_organization_policy" "ipforward_policy" {
   project    = var.cloud-ops-project 
   constraint = "compute.vmCanIpForward"
-
-  list_policy {
-    allow {
-      all = true
-    }
-  }
-}
-
-resource "google_project_organization_policy" "internetneg_policy" {
-  project    = var.cloud-ops-project 
-  constraint = "compute.disableInternetNetworkEndpointGroup"
 
   list_policy {
     allow {
