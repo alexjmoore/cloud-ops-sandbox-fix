@@ -56,3 +56,14 @@ resource "google_project_organization_policy" "ipforward_policy" {
     }
   }
 }
+
+resource "google_project_organization_policy" "internetneg_policy" {
+  project    = var.cloud-ops-project 
+  constraint = "compute.disableInternetNetworkEndpointGroup"
+
+  list_policy {
+    allow {
+      all = true
+    }
+  }
+}
